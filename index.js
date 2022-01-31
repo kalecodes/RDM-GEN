@@ -1,7 +1,8 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateMarkdown = require('./utils/generateMarkdown');
+const generateMarkdown = require('./utils/generateMarkdown.js');
+const { rejects } = require('assert');
 
 // TODO: Create an array of questions for user input
 const questions = () => {
@@ -43,10 +44,23 @@ const questions = () => {
             message: 'Please provide any necessary usage information.'
         },
         {
+            type: 'confirm',
+            name: 'confirmLicense',
+            message: 'Would you like to add a license?',
+            default: true
+        },
+        {
             type: 'list',
             name: 'license',
             message: "Please choose the license you would like to use.",
-            choices: ['MIT','','','','']
+            choices: ['GNU GPLv3', 'Apache License 2.0', 'MIT License', 'The Unlicense'],
+            when: ({ confirmLicense }) => {
+                if (confirmLicense) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         },
         {
             type: 'input',
@@ -89,14 +103,41 @@ const questions = () => {
             name: 'contact',
             message: 'Please provide contact instructions for user questions.'
         }
-    ])
+    ]).then(projectData => {
+        console.log(projectData)
+    }).then(projectData => {
+        return generateMarkdown(projectData);
+    });
 };
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+const writeToFile = (fileName, data) => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./dist/README.md', data, err => {
+            if (err) {
+                rejects(err);
+            }
+            resolve({
+                ok: true,
+                message: 'File created!'
+            });
+        });
+    });
+};
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    questions()
+        // .then(projectData => {
+        //     return generateMarkdown(projectData);
+        // })
+        .then(data => {
+            return writeToFile(data);
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
 
 // Function call to initialize app
 init();
