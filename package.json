@@ -1,14 +1,23 @@
 {
-  "name": "static-site",
+  "name": "rdm-gen",
   "version": "1.0.0",
-  "description": "",
+  "description": "CLI Readme generator",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Kalen Wiley",
+  "license": "MIT",
   "dependencies": {
-    "inquirer": "^6.3.1"
-  }
+    "inquirer": "^6.5.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalecodes/RDM-GEN.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kalecodes/RDM-GEN/issues"
+  },
+  "homepage": "https://github.com/kalecodes/RDM-GEN#readme",
+  "devDependencies": {}
 }
