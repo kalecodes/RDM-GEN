@@ -2,11 +2,9 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown.js');
-const { rejects } = require('assert');
 
 // TODO: Create an array of questions for user input
-const questions = () => {
-    return inquirer .prompt([
+const questions = [
         {
             type: 'input',
             name: 'title',
@@ -53,7 +51,7 @@ const questions = () => {
             type: 'list',
             name: 'license',
             message: "Please choose the license you would like to use.",
-            choices: ['GNU GPLv3', 'Apache License 2.0', 'MIT License', 'The Unlicense'],
+            choices: ['GNU-General-Public', 'Apache', 'MIT', 'None'],
             when: ({ confirmLicense }) => {
                 if (confirmLicense) {
                     return true;
@@ -103,36 +101,25 @@ const questions = () => {
             name: 'contact',
             message: 'Please provide contact instructions for user questions.'
         }
-    ]).then(projectData => {
-        console.log(projectData)
-    }).then(projectData => {
-        return generateMarkdown(projectData);
-    });
-};
+]
+
 
 // TODO: Create a function to write README file
 const writeToFile = (fileName, data) => {
-    return new Promise((resolve, reject) => {
-        fs.writeFile('./dist/README.md', data, err => {
-            if (err) {
-                rejects(err);
-            }
-            resolve({
-                ok: true,
-                message: 'File created!'
-            });
-        });
+    fs.writeFile(fileName, data, err => {
+        if (err) {
+            throw(err);
+        }
+        console.log('File created!')
     });
 };
 
 // TODO: Create a function to initialize app
 function init() {
-    questions()
-        // .then(projectData => {
-        //     return generateMarkdown(projectData);
-        // })
-        .then(data => {
-            return writeToFile(data);
+    inquirer.prompt(questions)
+        .then(function (projectData) {
+            console.log(projectData)
+            writeToFile("./dist/README.md", generateMarkdown(projectData))
         })
         .catch(err => {
             console.log(err)
