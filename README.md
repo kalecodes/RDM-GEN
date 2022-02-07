@@ -18,7 +18,8 @@
   Install this applicatioin by cloning our repository from github to your device.
 
   ## Usage
-  This application requires the installation of node.js to operate. Navigate the the repo directory and your device, and launch the application using the command 'node index'.
+  This application requires the installation of node.js to operate. Navigate to the repo directory on your device, and launch the application using the command 'node index'.
+  Once you have answered all of the prompts, navigate to the dist/ directory to retrieve your readme file.
 
   ## License
   None
@@ -31,4 +32,3 @@
   
   ## Additional Info
   * Github: [kalecodes](https://github.com/kalecodes)
-  
