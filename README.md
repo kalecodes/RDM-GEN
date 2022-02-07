@@ -21,10 +21,6 @@
   This application requires the installation of node.js to operate. Navigate to the repo directory on your device, and launch the application using the command 'node index'.
   Once you have answered all of the prompts, navigate to the dist/ directory to retrieve your readme file.
 
-  ## Walkthrough Video
-  ![](./assets/RDM-GEN-video.mp4)
-  If video does not load, it can be found in the assets/ directory.
-
   ## License
   None
   
